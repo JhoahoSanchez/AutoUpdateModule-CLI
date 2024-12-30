@@ -12,7 +12,7 @@ import picocli.CommandLine;
         }
 )
 
-public class InterfazComandos implements Runnable{
+public class InterfazComandos implements Runnable {
 
     @Override
     public void run() {

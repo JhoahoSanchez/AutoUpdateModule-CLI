@@ -1,5 +1,6 @@
 package com.sideralsoft.cli;
 
+import com.sideralsoft.facade.ConexionServidor;
 import picocli.CommandLine;
 
 @CommandLine.Command(
@@ -14,5 +15,6 @@ public class ConsultaComandos implements Runnable {
     @Override
     public void run() {
         System.out.println("Consultando version de " + name);
+        System.out.println(ConexionServidor.obtenerVersionActual(name));
     }
 }

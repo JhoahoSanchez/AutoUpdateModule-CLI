@@ -1,6 +1,7 @@
 package com.sideralsoft.cli;
 
 
+import com.sideralsoft.facade.ConexionServidor;
 import picocli.CommandLine;
 
 @CommandLine.Command(
@@ -9,10 +10,10 @@ import picocli.CommandLine;
 )
 public class ActualizacionComandos implements Runnable {
     @CommandLine.Parameters(index = "0", description = "El nombre de la aplicación o certificado a actualizar.")
-    private String name;
+    private String nombre;
 
     @Override
     public void run() {
-        System.out.println("Actualizando cliente: " + name);
+        ConexionServidor.actualizarElemento(nombre);
     }
 }
