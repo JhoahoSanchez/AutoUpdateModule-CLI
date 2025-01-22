@@ -18,6 +18,6 @@ public class InstalacionComandos implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(ConexionServidor.instalarElemento(tipo, nombre, dependencia));
+        System.out.println(ConexionServidor.instalarElemento(nombre, tipo, dependencia));
     }
 }

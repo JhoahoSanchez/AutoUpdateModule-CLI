@@ -14,7 +14,6 @@ public class ConexionServidor {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConexionServidor.class);
 
-    //Obtiene la version actual de x aplicacion
     public static String obtenerVersionActual(String nombreElemento) {
         String nombre = URLEncoder.encode(nombreElemento, StandardCharsets.UTF_8);
         String baseUrl = "http://localhost:5500/version";
