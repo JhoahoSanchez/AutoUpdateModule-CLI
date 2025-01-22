@@ -66,11 +66,17 @@ public class ConexionServidor {
         }
     }
 
-    public static String instalarElemento(String nombreElemento, String tipo) {
+    public static String instalarElemento(String nombreElemento, String tipo, String dependencia) {
         String nombre = URLEncoder.encode(nombreElemento, StandardCharsets.UTF_8);
         String tipoElemento = URLEncoder.encode(tipo, StandardCharsets.UTF_8);
         String baseUrl = "http://localhost:5500/install";
-        String urlConParametros = String.format("%s?nombre=%s&tipo=%s", baseUrl, nombre, tipoElemento);
+        String urlConParametros;
+
+        if (dependencia != null) {
+            urlConParametros = String.format("%s/dependency?nombre=%s&tipo=%s&dependencia=%s", baseUrl, nombre, tipoElemento, URLEncoder.encode(dependencia, StandardCharsets.UTF_8));
+        }else {
+            urlConParametros = String.format("%s?nombre=%s&tipo=%s", baseUrl, nombre, tipoElemento);
+        }
 
         try (HttpClient client = HttpClient.newHttpClient()) {
             HttpRequest request = HttpRequest.newBuilder()

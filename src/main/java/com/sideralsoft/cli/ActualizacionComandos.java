@@ -14,6 +14,7 @@ public class ActualizacionComandos implements Runnable {
 
     @Override
     public void run() {
-        ConexionServidor.actualizarElemento(nombre);
+        System.out.println("Actualizando " + nombre + "...");
+        System.out.println(ConexionServidor.actualizarElemento(nombre));
     }
 }

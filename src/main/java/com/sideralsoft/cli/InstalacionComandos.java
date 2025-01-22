@@ -11,11 +11,13 @@ public class InstalacionComandos implements Runnable {
 
     @CommandLine.Parameters(index = "0", description = "El nombre de la aplicación o certificado a instalar.")
     private String nombre;
-    @CommandLine.Parameters(index = "1", description = "Tipo de elemento (APLICACION/CERTIFICADO).")
+    @CommandLine.Parameters(index = "1", description = "Tipo de elemento (APLICACION/INSTALADOR/CERTIFICADO).")
     private String tipo;
+    @CommandLine.Option(names = {"--d", "--dependency"}, description = "Nombre de la dependencia a instalar (Exclusivo para APLICACION).")
+    private String dependencia;
 
     @Override
     public void run() {
-        ConexionServidor.instalarElemento(tipo, nombre);
+        System.out.println(ConexionServidor.instalarElemento(tipo, nombre, dependencia));
     }
 }

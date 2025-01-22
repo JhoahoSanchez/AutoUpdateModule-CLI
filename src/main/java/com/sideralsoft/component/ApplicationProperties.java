@@ -6,7 +6,6 @@ import java.util.Properties;
 
 public class ApplicationProperties {
 
-
     private static Properties properties;
 
     private static void cargarPropiedades() {
