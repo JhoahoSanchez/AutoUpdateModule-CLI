@@ -9,13 +9,14 @@ import picocli.CommandLine;
                 InstalacionComandos.class,
                 ActualizacionComandos.class,
                 ConsultaComandos.class
-        }
+        },
+        mixinStandardHelpOptions = true
 )
 
 public class InterfazComandos implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("AppManager CLI: usa 'appmanager --help' para más información.");
+        System.out.println("AppManager CLI: usa '--help' para más información.");
     }
 }

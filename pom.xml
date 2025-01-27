@@ -45,7 +45,6 @@
 
     <build>
         <plugins>
-            <!-- Plugin para ensamblar un JAR con dependencias -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -63,7 +62,6 @@
                 </executions>
             </plugin>
 
-            <!-- Plugin para empaquetar el JAR ejecutable -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -78,5 +76,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

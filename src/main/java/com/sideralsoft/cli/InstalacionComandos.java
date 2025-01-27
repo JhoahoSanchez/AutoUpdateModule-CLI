@@ -5,7 +5,7 @@ import picocli.CommandLine;
 
 @CommandLine.Command(
         name = "install",
-        description = "Instala una aplicación o certificado."
+        description = "Instala una aplicación, certificado o dependencia."
 )
 public class InstalacionComandos implements Runnable {
 

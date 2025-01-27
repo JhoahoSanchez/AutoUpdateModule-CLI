@@ -1,5 +1,6 @@
 package com.sideralsoft.facade;
 
+import com.sideralsoft.component.ApplicationProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,12 +17,13 @@ public class ConexionServidor {
 
     public static String obtenerVersionActual(String nombreElemento) {
         String nombre = URLEncoder.encode(nombreElemento, StandardCharsets.UTF_8);
-        String baseUrl = "http://localhost:5500/version";
+        String baseUrl = ApplicationProperties.getProperty("api.url") + "/version";
         String urlConParametros = String.format("%s?nombre=%s", baseUrl, nombre);
 
         try (HttpClient client = HttpClient.newHttpClient()) {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI(urlConParametros))
+                    .header("Authorization", ApplicationProperties.getProperty("api.security.token"))
                     .GET()
                     .build();
 
@@ -42,12 +44,13 @@ public class ConexionServidor {
 
     public static String actualizarElemento(String nombreElemento) {
         String nombre = URLEncoder.encode(nombreElemento, StandardCharsets.UTF_8);
-        String baseUrl = "http://localhost:5500/update";
+        String baseUrl = ApplicationProperties.getProperty("api.url") + "/update";
         String urlConParametros = String.format("%s?nombre=%s", baseUrl, nombre);
 
         try (HttpClient client = HttpClient.newHttpClient()) {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI(urlConParametros))
+                    .header("Authorization", ApplicationProperties.getProperty("api.security.token"))
                     .POST(HttpRequest.BodyPublishers.ofString(nombreElemento))
                     .build();
 
@@ -68,7 +71,7 @@ public class ConexionServidor {
     public static String instalarElemento(String nombreElemento, String tipo, String dependencia) {
         String nombre = URLEncoder.encode(nombreElemento, StandardCharsets.UTF_8);
         String tipoElemento = URLEncoder.encode(tipo, StandardCharsets.UTF_8);
-        String baseUrl = "http://localhost:5500/install";
+        String baseUrl = ApplicationProperties.getProperty("api.url") + "/install";
         String urlConParametros;
 
         if (dependencia != null) {
@@ -80,6 +83,7 @@ public class ConexionServidor {
         try (HttpClient client = HttpClient.newHttpClient()) {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI(urlConParametros))
+                    .header("Authorization", ApplicationProperties.getProperty("api.security.token"))
                     .POST(HttpRequest.BodyPublishers.ofString(nombreElemento))
                     .build();
 
