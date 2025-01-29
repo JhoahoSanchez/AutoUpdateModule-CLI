@@ -10,6 +10,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 public class ConexionServidor {
 
@@ -52,6 +53,34 @@ public class ConexionServidor {
                     .uri(new URI(urlConParametros))
                     .header("Authorization", ApplicationProperties.getProperty("api.security.token"))
                     .POST(HttpRequest.BodyPublishers.ofString(nombreElemento))
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() != 200) {
+                LOG.debug("Ha ocurrido un error al intentar actualizar " + nombreElemento);
+                return "Ha ocurrido un error al intentar actualizar " + nombreElemento;
+            }
+
+            return response.body();
+        } catch (Exception e) {
+            LOG.error("Error al consultar la cliente: {}", e.getMessage());
+            return "Error al consultar la cliente: " + e.getMessage();
+        }
+    }
+
+    public static String actualizarElemento(String nombreElemento, String dependencia) {
+        String nombre = URLEncoder.encode(nombreElemento, StandardCharsets.UTF_8);
+        String baseUrl = ApplicationProperties.getProperty("api.url") + "/update/dependency";
+        String urlConParametros = String.format("%s?nombre=%s&dependencia=%s", baseUrl, nombre, dependencia);
+
+        Map<String, String> cuerpo = Map.of("nombre", nombre, "dependencia", dependencia);
+
+        try (HttpClient client = HttpClient.newHttpClient()) {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(urlConParametros))
+                    .header("Authorization", ApplicationProperties.getProperty("api.security.token"))
+                    .POST(HttpRequest.BodyPublishers.ofString(cuerpo.toString()))
                     .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
